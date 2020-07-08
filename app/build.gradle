@@ -23,7 +23,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\" https://api.com/v2/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
             buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
 
         }
