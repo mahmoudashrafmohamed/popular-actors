@@ -1,6 +1,9 @@
 package com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.dev.mahmoud_ashraf.popular_actors_app.data.entities.Actor
 import com.dev.mahmoud_ashraf.popular_actors_app.domain.repositories.PopularActorsRepository
 import com.dev.mahmoud_ashraf.popular_actors_app.domain.usecases.fetchPopularActors
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -13,20 +16,22 @@ class HomeViewModel(private val popularActorsRepository: PopularActorsRepository
 
     private val compositeDisposable by lazy { CompositeDisposable() }
 
-    fun load(){}
+    private val _popularActorsLiveData = MutableLiveData<List<Actor>>()
+    val popularActorsLiveData : LiveData<List<Actor>>
+            get() = _popularActorsLiveData
+
 
     init {
         fetchPopularActors(page = 1, repository = popularActorsRepository)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { data ->
-                  //  _venuesListLiveData.value = data
-                    Timber.e(data.toString())
+                { actors ->
+                    _popularActorsLiveData.value = actors
                 },
                 { throwable ->
                     throwable.printStackTrace()
-                    Timber.e("error happened")
+                    Timber.e("error happened!")
                 }
             ).addTo(compositeDisposable)
     }
