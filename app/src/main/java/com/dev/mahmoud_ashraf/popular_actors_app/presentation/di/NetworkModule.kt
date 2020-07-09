@@ -58,11 +58,12 @@ fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient {
                 .url
                 .newBuilder()
                 .addQueryParameter("api_key", BuildConfig.API_KEY)
+                .addQueryParameter("language", "ar-AR")
                 .build()
 
             // add api key and language
             val requestBuilder = chain.request().newBuilder()
-            requestBuilder.header("language", "ar-AR")
+            //requestBuilder.header("language", "ar-AR")
             requestBuilder.url(url)
 
             val response = chain.proceed(requestBuilder.build())

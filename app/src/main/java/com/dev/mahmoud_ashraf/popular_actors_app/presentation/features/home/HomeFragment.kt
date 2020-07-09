@@ -7,15 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.dev.mahmoud_ashraf.popular_actors_app.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            HomeFragment()
-    }
-
-    private lateinit var viewModel: HomeViewModel
+    private val homeViewModel by viewModel<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,8 +22,11 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
+        homeViewModel.load()
+    }
+
+    companion object {
+        fun newInstance() = HomeFragment()
     }
 
 }
