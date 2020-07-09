@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.dev.mahmoud_ashraf.popular_actors_app.data.entities.Actor
 import com.dev.mahmoud_ashraf.popular_actors_app.databinding.ActorItemViewBinding
+import timber.log.Timber
 
 class PopularActorsAdapter :
     ListAdapter<Actor, PopularActorsAdapter.ActorViewHolder>(ActorsDiffCallback()) {
@@ -46,11 +47,13 @@ class PopularActorsAdapter :
                 .thumbnail(0.1f)
                 .into(binding.profileImage)
 
-            binding.executePendingBindings()
-
-            itemView.setOnClickListener {
+            binding.itemCardView.setOnClickListener {
                 onItemClicked?.invoke(position, actor)
             }
+
+            binding.executePendingBindings()
+
+
         }
     }
 

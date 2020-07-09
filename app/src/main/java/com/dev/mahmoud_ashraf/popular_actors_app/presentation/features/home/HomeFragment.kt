@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.mahmoud_ashraf.popular_actors_app.R
 import com.dev.mahmoud_ashraf.popular_actors_app.databinding.HomeFragmentBinding
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.core.EndlessRecyclerViewScrollListener
+import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.details.DetailsFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -44,7 +46,20 @@ class HomeFragment : Fragment() {
 
         binding.popularActorsRecycler.adapter = adapter
         binding.popularActorsRecycler.itemAnimator = null
-        adapter.onItemClicked = { position, actor -> }
+        adapter.onItemClicked = { _, actor ->
+            /*
+             val navController = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+            )
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+             */
+            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+        }
 
       binding.popularActorsRecycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(
         binding.popularActorsRecycler.layoutManager as LinearLayoutManager
