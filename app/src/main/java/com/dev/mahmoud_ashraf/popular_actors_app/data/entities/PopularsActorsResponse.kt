@@ -10,16 +10,5 @@ data class PopularsActorsResponse (@SerializedName("page")
                            val totalPages: Int?,
                                    @SerializedName("total_results")
                            val totalResults: Int?)
-{
-    data class Actor(  @SerializedName("gender")
-                       val gender: Int?,
-                       @SerializedName("id")
-                       val id: Int?,
-                       @SerializedName("known_for_department")
-                       val knownForDepartment: String?,
-                       @SerializedName("name")
-                       val name: String?,
-                       @SerializedName("profile_path")
-                       val profilePath: String?)
-}
+
 
