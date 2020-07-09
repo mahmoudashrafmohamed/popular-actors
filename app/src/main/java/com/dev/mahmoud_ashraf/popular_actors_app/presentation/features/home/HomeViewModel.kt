@@ -20,19 +20,27 @@ class HomeViewModel(private val popularActorsRepository: PopularActorsRepository
     val popularActorsLiveData : LiveData<List<Actor>>
             get() = _popularActorsLiveData
 
+    private var PAGE_NUM = 1
 
     init {
-        fetchPopularActors(page = 1, repository = popularActorsRepository)
+        fetchPopularActors()
+    }
+
+    fun fetchPopularActors() {
+        fetchPopularActors(page = PAGE_NUM, repository = popularActorsRepository)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { actors ->
-                    _popularActorsLiveData.value = actors
+                    val temp = popularActorsLiveData.value?.toMutableList() ?: mutableListOf()
+                    temp.addAll(actors)
+                    _popularActorsLiveData.value = temp
+                    PAGE_NUM++
                 },
                 { throwable ->
                     throwable.printStackTrace()
-                    Timber.e("error happened!")
                 }
+
             ).addTo(compositeDisposable)
     }
 
@@ -40,4 +48,5 @@ class HomeViewModel(private val popularActorsRepository: PopularActorsRepository
         compositeDisposable.dispose()
         super.onCleared()
     }
+
 }

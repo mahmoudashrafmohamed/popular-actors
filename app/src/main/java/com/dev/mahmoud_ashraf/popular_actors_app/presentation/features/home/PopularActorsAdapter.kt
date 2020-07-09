@@ -40,7 +40,11 @@ class PopularActorsAdapter :
         ) {
             binding.nameText.text = actor.name
 
-            Glide.with(binding.profileImage).load(actor.profilePath).into(binding.profileImage)
+            Glide.with(binding.profileImage)
+                .load(actor.profilePath)
+                .override(300)
+                .thumbnail(0.1f)
+                .into(binding.profileImage)
 
             binding.executePendingBindings()
 
