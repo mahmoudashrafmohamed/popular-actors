@@ -47,18 +47,10 @@ class HomeFragment : Fragment() {
         binding.popularActorsRecycler.adapter = adapter
         binding.popularActorsRecycler.itemAnimator = null
         adapter.onItemClicked = { _, actor ->
-            /*
-             val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-             */
-            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_detailsFragment,
+                Bundle().also {
+                it.putParcelable(ARGS_ACTOR,actor)
+            })
         }
 
       binding.popularActorsRecycler.addOnScrollListener(object : EndlessRecyclerViewScrollListener(
@@ -75,7 +67,7 @@ class HomeFragment : Fragment() {
 
 
     companion object {
-        fun newInstance() = HomeFragment()
+        const val ARGS_ACTOR = "ARGS_ACTOR"
     }
 
 

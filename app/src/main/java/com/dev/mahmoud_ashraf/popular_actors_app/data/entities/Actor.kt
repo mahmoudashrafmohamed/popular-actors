@@ -1,7 +1,10 @@
 package com.dev.mahmoud_ashraf.popular_actors_app.data.entities
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Actor(  @SerializedName("gender")
                    val gender: Int?,
                    @SerializedName("id")
@@ -11,4 +14,9 @@ data class Actor(  @SerializedName("gender")
                    @SerializedName("name")
                    val name: String?,
                    @SerializedName("profile_path")
-                   val profilePath: String?)
+                   val profilePath: String?,
+                   @SerializedName("known_for")
+                   val knownFor: List<ActorInfo>?
+
+) : Parcelable
+
