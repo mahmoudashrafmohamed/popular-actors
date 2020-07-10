@@ -13,7 +13,7 @@ import com.dev.mahmoud_ashraf.popular_actors_app.domain.usecases.POSTER_BASE_URL
 class DetailsAdapter :
     ListAdapter<ActorInfo, DetailsAdapter.ActorInfoViewHolder>(ActorsInfoDiffCallback()) {
 
-    var onItemClicked: ((position: Int, actor: ActorInfo) -> Unit)? = null
+    var onItemClicked: ((position: Int, actorImage: ActorInfo) -> Unit)? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorInfoViewHolder {
@@ -36,7 +36,7 @@ class DetailsAdapter :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(
             actorInfo : ActorInfo,
-            onItemClicked: ((position: Int, actor: ActorInfo) -> Unit)?,
+            onItemClicked: ((position: Int, actorInfo: ActorInfo) -> Unit)?,
             position: Int
         ) {
 

@@ -7,5 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ActorInfo(
     @SerializedName("poster_path")
-    val posterPath : String?
+    val posterPath : String?,
+    @SerializedName("id")
+    val id : Int?
 ) : Parcelable

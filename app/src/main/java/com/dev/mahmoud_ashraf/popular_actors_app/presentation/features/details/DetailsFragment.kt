@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.dev.mahmoud_ashraf.popular_actors_app.R
 import com.dev.mahmoud_ashraf.popular_actors_app.data.entities.Actor
 import com.dev.mahmoud_ashraf.popular_actors_app.databinding.DetailsFragmentBinding
+import com.dev.mahmoud_ashraf.popular_actors_app.domain.usecases.POSTER_BASE_URL
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.core.EndlessRecyclerViewScrollListener
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home.HomeActivity
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home.HomeFragment
@@ -22,7 +23,7 @@ import timber.log.Timber
 
 class DetailsFragment : Fragment() {
 
-    private lateinit var binding : DetailsFragmentBinding
+    private lateinit var binding: DetailsFragmentBinding
     private val adapter by lazy { DetailsAdapter() }
 
     override fun onCreateView(
@@ -37,7 +38,7 @@ class DetailsFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         setUpRecycler()
         arguments?.let {
-          val actor =   it.getParcelable<Actor>(HomeFragment.ARGS_ACTOR)
+            val actor = it.getParcelable<Actor>(HomeFragment.ARGS_ACTOR)
             updateUi(actor)
         }
     }
@@ -45,11 +46,12 @@ class DetailsFragment : Fragment() {
     private fun setUpRecycler() {
         binding.imagesRecycler.adapter = adapter
         binding.imagesRecycler.itemAnimator = null
-        adapter.onItemClicked = { _, actorInfo ->
-           /* findNavController().navigate(R.id.action_homeFragment_to_detailsFragment,
+        adapter.onItemClicked = { _, image ->
+            findNavController().navigate(R.id.action_detailsFragment_to_previewImageFragment,
                 Bundle().also {
-                    it.putParcelable(HomeFragment.ARGS_ACTOR,actor)
-                })*/
+                    it.putString(ARGS_ID, image.id?.toString())
+                    it.putString(ARGS_IMAGE_URL, POSTER_BASE_URL.plus(image.posterPath))
+                })
         }
     }
 
@@ -67,6 +69,11 @@ class DetailsFragment : Fragment() {
             adapter.submitList(it.knownFor)
 
         }
+    }
+
+    companion object {
+        const val ARGS_ID = "image_id"
+        const val ARGS_IMAGE_URL = "image_url"
     }
 
 }

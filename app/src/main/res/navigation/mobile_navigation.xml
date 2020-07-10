@@ -17,6 +17,15 @@
         android:id="@+id/detailsFragment"
         android:name="com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.details.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        tools:layout="@layout/details_fragment" >
+        <action
+            android:id="@+id/action_detailsFragment_to_previewImageFragment"
+            app:destination="@id/previewImageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewImageFragment"
+        android:name="com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.preview.PreviewImageFragment"
+        android:label="preview_image_fragment"
+        tools:layout="@layout/preview_image_fragment" />
 
 </navigation>
