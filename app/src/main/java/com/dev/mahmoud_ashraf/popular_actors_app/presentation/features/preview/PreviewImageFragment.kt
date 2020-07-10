@@ -1,5 +1,6 @@
 package com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.preview
 
+import android.Manifest
 import android.R.attr.path
 import android.content.Context
 import android.graphics.Bitmap
@@ -19,6 +20,9 @@ import com.bumptech.glide.request.target.Target
 import com.dev.mahmoud_ashraf.popular_actors_app.R
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.details.DetailsFragment
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home.HomeViewModel
+import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.FileOutputStream
@@ -39,17 +43,19 @@ class PreviewImageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        arguments?.let {
-            val id = it.getString(DetailsFragment.ARGS_ID)
-            val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
+
+                    arguments?.let {
+                        val id = it.getString(DetailsFragment.ARGS_ID)
+                        val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
 
 
-                viewModel.download(
-                    url = url.orEmpty(),
-                    fileName = "${id.orEmpty()}.jpg",
-                    externalDirectory = getExternalDir(requireContext())
-                )
-            }
+                        viewModel.download(
+                            url = url.orEmpty(),
+                            fileName = "${id.orEmpty()}.jpg",
+                            externalDirectory = getExternalDir(requireContext())
+                        )
+                }
+
 
 
     }
@@ -64,6 +70,7 @@ class PreviewImageFragment : Fragment() {
             context.filesDir.absolutePath
         }
     }
+
 
 
 }

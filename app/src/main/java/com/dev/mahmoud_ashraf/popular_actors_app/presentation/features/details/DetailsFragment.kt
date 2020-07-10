@@ -1,6 +1,5 @@
 package com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.details
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
