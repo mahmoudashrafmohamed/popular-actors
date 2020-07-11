@@ -23,6 +23,7 @@ import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home.Home
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.preview_image_fragment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.FileOutputStream
@@ -48,12 +49,18 @@ class PreviewImageFragment : Fragment() {
                         val id = it.getString(DetailsFragment.ARGS_ID)
                         val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
 
+                        Glide.with(image)
+                            .load(url)
+                            .into(image)
 
-                        viewModel.download(
-                            url = url.orEmpty(),
-                            fileName = "${id.orEmpty()}.jpg",
-                            externalDirectory = getExternalDir(requireContext())
-                        )
+                        save_button.setOnClickListener {
+                            viewModel.download(
+                                url = url.orEmpty(),
+                                fileName = "${id.orEmpty()}.jpg",
+                                externalDirectory = getExternalDir(requireContext())
+                            )
+                        }
+
                 }
 
 
