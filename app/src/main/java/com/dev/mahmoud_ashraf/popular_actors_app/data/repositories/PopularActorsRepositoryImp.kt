@@ -9,8 +9,8 @@ import okhttp3.ResponseBody
 
 class PopularActorsRepositoryImp(private val serverGateway: ServerGateway) : PopularActorsRepository {
 
-    override fun requestPopularActors(page: Int): Single<PopularsActorsResponse> {
-        return serverGateway.getPopularActors(page = page)
+    override fun requestPopularActors(page: Int?): Single<PopularsActorsResponse> {
+        return serverGateway.getPopularActors(page = page!!)
     }
 
     override fun downloadImage(url: String): Observable<ResponseBody> {
