@@ -6,10 +6,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Environment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -48,8 +51,19 @@ class PreviewImageFragment : Fragment() {
             val id = it.getString(DetailsFragment.ARGS_ID)
             val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
             Glide.with(image).load(url).into(image)
+            setupObserver()
             setupListeners(url, id)
         }
+    }
+
+    private fun setupObserver() {
+        viewModel.downloadStatusLiveData.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(requireContext(), "Downloaded Successfully.", Toast.LENGTH_LONG)
+                .apply {
+                setGravity(Gravity.CENTER, 0, 0)
+            }.show()
+
+        })
     }
 
     private fun setupListeners(url: String?, id: String?) {
