@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.dev.mahmoud_ashraf.popular_actors_app.R
+import com.dev.mahmoud_ashraf.popular_actors_app.presentation.core.getExternalDir
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.details.DetailsFragment
 import com.dev.mahmoud_ashraf.popular_actors_app.presentation.features.home.HomeViewModel
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -34,7 +35,6 @@ class PreviewImageFragment : Fragment() {
 
     private val viewModel by viewModel<PreviewImageViewModel>()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,40 +44,23 @@ class PreviewImageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-                    arguments?.let {
-                        val id = it.getString(DetailsFragment.ARGS_ID)
-                        val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
-
-                        Glide.with(image)
-                            .load(url)
-                            .into(image)
-
-                        save_button.setOnClickListener {
-                            viewModel.download(
-                                url = url.orEmpty(),
-                                fileName = "${id.orEmpty()}.jpg",
-                                externalDirectory = getExternalDir(requireContext())
-                            )
-                        }
-
-                }
-
-
-
-    }
-
-
-    private fun getExternalDir(context: Context): String {
-        val state = Environment.getExternalStorageState()
-        // to check if Sd card available
-        return if (Environment.MEDIA_MOUNTED == state) {
-            context.getExternalFilesDir(null)!!.absolutePath
-        } else {
-            context.filesDir.absolutePath
+        arguments?.let {
+            val id = it.getString(DetailsFragment.ARGS_ID)
+            val url = it.getString(DetailsFragment.ARGS_IMAGE_URL)
+            Glide.with(image).load(url).into(image)
+            setupListeners(url, id)
         }
     }
 
+    private fun setupListeners(url: String?, id: String?) {
+        save_button.setOnClickListener {
+            viewModel.download(
+                url = url.orEmpty(),
+                fileName = "${id.orEmpty()}.jpg",
+                externalDirectory = getExternalDir(requireContext())
+            )
+        }
+    }
 
 
 }

@@ -13,6 +13,7 @@ class SplashActivity : AppCompatActivity() {
 
         // open home activity
         startActivity(Intent(this, HomeActivity::class.java))
+        finish()
 
     }
 }
