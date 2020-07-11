@@ -7,7 +7,7 @@ A popular-actors app with the MoviesDB api.
 - When an image is selected, it’s opened in its original size in a new screen where the user can save the image locally on the phone.
 - Implement unit test for usecases layer.
 
-##Tech Stack
+## Tech Stack
 - kotlin 
 - Clean Architecure with MVVM.
 - koin for di.
