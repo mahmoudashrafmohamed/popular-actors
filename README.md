@@ -25,9 +25,11 @@ A popular-actors app with the MoviesDB api.
 - Junit4.
 - Mockito.
 
-Note:
-to run this app you need to
-1- create file apikey.properties in root project
-2- add you api key from the MovieDB ex: API_KEY = "123"
+# Note:
+ to run this app you need to:
+
+1 - create file apikey.properties in root project
+
+2 - add you api key from the MovieDB ex: API_KEY = "123"
 
  
