@@ -7,7 +7,7 @@ import okhttp3.ResponseBody
 
 interface PopularActorsRepository {
 
-    fun requestPopularActors(page: Int?): Single<PopularsActorsResponse>
+    fun requestPopularActors(page: Int): Single<PopularsActorsResponse>
 
     fun downloadImage(url: String): Observable<ResponseBody>
 }
